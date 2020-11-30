@@ -1,42 +1,32 @@
+<?php
+    include_once 'header.php';
+?>
 <!doctype html>
 
 <html lang="en">
 <head>
   <meta charset="utf-8">
 
-  <title> The Capstone Libray > Catalog</title>
-    <link rel="shortcut icon" type="image/png" href="images/tcl_aqua_logo.jpg"
+  <title> The Handler Libray | Catalog</title>
+    <link rel="shortcut icon" type="image/png" href="logo.jpg">
   <meta name="description" content="The HTML5 Herald">
   <meta name="author" content="SitePoint">
-
-  <link rel="stylesheet" href="css/styles.css?v=1.0">
 </head>
-
-<body>
-  <h1> Catalog </h1>
-
-
-<html>
-<style>
-    table, th, td {
-        border: 1px solid #00FFFF;
-        }
-    table {
-        border-collapse: collapse;
-        width: 100%;
-        color: black;
-    }
-    th {
-        background-color: black;
-        color: #00FFFF;
-    }
-    th, td {
-        padding: 5px;
-    }
     
-    </style>    
+    
+<body>
+  <style>
+    .wrapper{
+     background-image: none;
+    }
+    </style>
+<html>
+    
+<h7> The Handler Library | Catalog </h7>      
 <table>
+    <br>  <br>  <br>  <br>
     <tr>
+        <th>  </th>
         <th> ISBN </th>
         <th> Title </th> 
         <th> Edition </th>
@@ -46,19 +36,32 @@
         <th> Published Year </th>    
         <th> Subject</th>
     </tr>
+    
     <?php
-    $conn = mysqli_connect("localhost", "root", "", "library");
-
+    $conn = mysqli_connect("localhost", "root", "", "loginsystem");
     if(! $conn){
         die("Connection failed:". mysqli_connect_error());
     }
-    
-    $sql = "SELECT isbn, title, edition, authLast, authFirst, pub, year, subject FROM books";
-    $result = $conn-> query($sql);
+
+        
+    $sql = "SELECT * FROM books";
+    $result = $conn-> query($sql); 
     
     if ($result-> num_rows > 0) {
         while ($row = $result-> fetch_assoc()) {
-            echo "<tr><td>". $row["isbn"] ."</td><td>". $row["title"] ."</td><td>". $row["edition"] ."</td><td>". $row["authLast"] ."</td><td>". $row["authFirst"] ."</td><td>". $row["pub"] ."</td><td>". $row["year"] ."</td><td>". $row["subject"] ."</td><tr>";
+             echo "<td>"; 
+                ?> <img src="<?php echo $row["image"]; 
+                ?>" height="100" width="80">
+    <?php echo
+                "</td><td>".  $row["isbn"] 
+                ."</td><td>". $row["title"] 
+                ."</td><td>". $row["edition"] 
+                ."</td><td>". $row["authLast"] 
+                ."</td><td>". $row["authFirst"] 
+                ."</td><td>". $row["pub"] 
+                ."</td><td>". $row["year"] 
+                ."</td><td>". $row["subject"] 
+                ."</td><tr>";
         }
         echo "</table>";
     }
@@ -67,6 +70,8 @@
     }
     $conn-> close();
     ?>    
+
+    
     </table>
     </html>    
         
